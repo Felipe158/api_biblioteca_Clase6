@@ -13,14 +13,6 @@ router.get('/', async (req, res) => {
         const libros = await Libro.find();
         res.json(libros);
 
-        // console.log(libros[2]);
-        // console.log(typeof(libros));
-        // console.log(typeof(libros[0]));
-        
-        // for (let i=0; i<=libros.length(); i++){
-        //     console.log("Un ejemplar de " + libros[i]["titulo"]);
-        // }
-
     } catch (error) {
         res.status(500).json({ error: "Error al obtener los libros "})
     }
@@ -71,25 +63,16 @@ router.put('/:id', requiredScopes('write:libros'), async (req, res) => {
     }
 });
 
-
-
 // Ruta para eliminar un libro
 router.delete('/:id', requiredScopes('write:libros'), async (req, res) => {
     try {
-        
         await Libro.find({ titulo: req.params.titulo });
-        
-        //await Libro.findByIdAndDelete(req.params.titulo);
         res.json({ message: "Libro eliminado correctamente" });
+
     } catch (error) {
         console.log(req.params.titulo);
         res.status(500).json({ error: "Error al eliminar el libro" });
     }
 });
-
-
-
-
-
 
 module.exports = router;
