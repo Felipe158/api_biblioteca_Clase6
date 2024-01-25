@@ -8,7 +8,7 @@ const { requiredScopes } = require('express-oauth2-jwt-bearer');
 
 
 // Ruta para obtener todos los libros
-router.get('/', async (req, res) => {
+router.get('/', requiredScopes('read:libros'), async (req, res) => {
     try {
         const libros = await Libro.find();
         res.json(libros);
